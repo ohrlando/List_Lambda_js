@@ -1,0 +1,41 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>List with Lambda for JS</title>
+    <style>
+        #completa .selected {
+            color: red;
+        }
+
+        .selected {
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <ul id="output"></ul>
+    <span id="label"></span><br />
+    <span id="label2"></span><br />
+    <span id="label3"></span><br />
+    <br />
+    Completos
+    <ul id="completa">
+        <li class="selected">item 1</li>
+        <li>item 2</li>
+        <li>item 3</li>
+        <li class="selected">item 4</li>
+    </ul>
+    Selecionados
+    <ul id="ex2">
+        <li class="selected">item 1</li>
+        <li>item 2</li>
+        <li>item 3</li>
+        <li class="selected">item 4</li>
+    </ul>
+    Removidos
+    <ul id="removidos"></ul>
+    <script src="Scripts/jquery-2.1.4.min.js"></script>
+    <script src="js/list.js"></script>    
+    <script src="js/code.js"></script>
+</body>
+</html>
