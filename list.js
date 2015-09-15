@@ -27,17 +27,17 @@ List = function (array, inheritCallbacks) {
     this.remove = function (index) {
         array.splice(index, 1);
     };
-    this.first = function(action) {
-        if(!action) 
-        	return array[0];   
+    this.first = function (action) {
+        if (!action)
+            return array[0];
         var i = -1;
-        while(++i < array.length) {
+        while (++i < array.length) {
             if (action(array[i])) return array[i];
         }
         return {};
     };
-    this.last = function() {
-         return array[array.length - 1]   
+    this.last = function () {
+        return array[array.length - 1]
     };
     this.slice = array.slice.bind(array);
     this.any = function (action) {
@@ -45,8 +45,8 @@ List = function (array, inheritCallbacks) {
         /// <returns type="List" />
         action._type = "a";
         callbacks.push(action);
-        var retorno = this.toList(false);
-        return retorno === undefined ? false : retorno;
+        var retorno = this.toList(true);
+        return retorno === undefined ? false : (retorno !== true ? false : true);
     };
     this.where = function (action) {
         /// <param name="action" type="bool function(item){}"></param>
@@ -74,15 +74,15 @@ List = function (array, inheritCallbacks) {
         "w": function (func, item) {
             return func(item) ? item : null;
         },
-            "s": function (func, item) {
+        "s": function (func, item) {
             var _output = this;
             return func(item);
         },
-            "e": function (func, item) {
+        "e": function (func, item) {
             func(item);
             return item;
         },
-            "a": function (func, item) {
+        "a": function (func, item) {
             var retorno = func(item);
             if (retorno === true) this.a = this.r = true;
             else return item;
