@@ -42,7 +42,7 @@ var nomes = lista.where(function (item) {
 }).toArray();
 
 //primeiro com condição
-console.log(lista.first(function (item) {
+console.log("\nPrimeiro com a idade igual a 13 é: ", lista.first(function (item) {
     return item.idade == 13;
 }).nome);
 
@@ -60,7 +60,7 @@ document.getElementById("label2").textContent = "Primeiro é: ".concat(lista.fir
 document.getElementById("label3").textContent = "Último é: ".concat(lista.last().nome);
 //primeiro letra M
 document.getElementById("label3").textContent = "Primeiro com letra M é:".concat(lista.first(function (item) { return item.nome[0] == "M"; }).nome);
-    
+
 //elementos em #ex2 > li
 var items = new List($("#ex2 > li"));
 items.where(function (li) {
@@ -79,3 +79,16 @@ items.where(function (li) {
     //adiciona os não selecionados
     $("#removidos").append(li);
 });
+
+//Distincts
+var myList = new List([{ letra: "a" }, { letra: "b" }, { letra: "b" }, { letra: "c" }, { letra: "d" }, { letra: "d" }, { letra: "e" }]);
+console.log("\nDistintos de objetos baseado uma prop:");
+console.log(myList.distinct(function (item) {
+    return item.letra;
+}).toList());
+
+myList = new List(["a", "a", "a", "b", "b", "c", "c", "c", "c", "d", "d", "e", "e"]);
+console.log("\nDistintos de letras: ");
+console.log(myList.distinct().toList());
+
+

@@ -64,6 +64,33 @@
         _callbacks.push(action);
         return new List(array.slice(), _callbacks);
     };
+    this.distinct = function (action) {
+        /// <signature>
+        ///     <summary>Retorna os ítens distintos</summary>
+        ///     <param name="action" type="function(item, i){}">Método para definir a propriedade que define o distinto</param>
+        ///     <returns type="List" />
+        /// </signature>
+        /// <signature>
+        ///     <summary>Retorna os ítens distintos</summary>
+        ///     <returns type="List" />
+        /// </signature>
+        var obj = {};
+        if (!action) {
+            action = function (item) {
+                return item;
+            };
+        }
+        _action = function (item) {
+            var key = action(item);
+            var retorno = !!this[key];
+            return retorno === true ? false : (this[key] = true);
+        }.bind(obj);
+        _action._type = "w";
+        var _callbacks = callbacks.slice();
+        _callbacks.push(_action);
+
+        return new List(array.slice(), _callbacks);
+    };
     this.each = function (action) {
         /// <param name="action" type="object function(item, i){}"></param>
         action._type = "e";
@@ -71,22 +98,25 @@
         this.toList(false);
     };
     var switchObject = {
-        "w": function (func, item) {
-            return func(item) ? item : null;
+        "a": function (func, item) {
+            var retorno = func(item);
+            if (retorno === true) this.a = this.r = true;
+            else return item;
         },
-        "s": function (func, item) {
-            var _output = this;
-            return func(item);
+        "d": function (func, item) {
+
         },
         "e": function (func, item) {
             func(item);
             return item;
         },
-        "a": function (func, item) {
-            var retorno = func(item);
-            if (retorno === true) this.a = this.r = true;
-            else return item;
-        }
+        "s": function (func, item) {
+            var _output = this;
+            return func(item);
+        },
+        "w": function (func, item) {
+            return func(item) ? item : null;
+        },
     };
     this.toList = function (hasOutput) {
         /// <signature>
