@@ -90,5 +90,6 @@ console.log(myList.distinct(function (item) {
 myList = new List(["a", "a", "a", "b", "b", "c", "c", "c", "c", "d", "d", "e", "e"]);
 console.log("\nDistintos de letras: ");
 console.log(myList.distinct().toList());
-
+//último com predicato
+console.log(myList.where(function (item) { return item == "a" || item == "c" }).last())
 
