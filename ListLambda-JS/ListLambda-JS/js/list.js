@@ -45,8 +45,8 @@
         /// <returns type="List" />
         action._type = "a";
         callbacks.push(action);
-        var retorno = this.toList(false);
-        return retorno === undefined ? false : retorno;
+        var retorno = this.toList(true);
+        return retorno === undefined ? false : (retorno !== true ? false : true);
     };
     this.where = function (action) {
         /// <param name="action" type="bool function(item){}"></param>

@@ -1,16 +1,39 @@
-﻿var append = function (value) {
+﻿/*
+Autor: Orlando
+List com metodologia lambda v 1.1.0
+https://github.com/ohrlando/List_Lambda_js
+*/
+//pratique aqui:
+
+//método para ajudar a adicionar novos elementos
+var append = function (value) {
     var li = document.createElement("LI");
     li.textContent = value;
     document.getElementById("output").appendChild(li);
 };
-var lista = new List([
- { nome: "Orlando", idade: 23 },
- { nome: "Leo", idade: 26 },
- { nome: "Matheus", idade: 16 },
- { nome: "Maysa", idade: 13 },
- { nome: "Roger", idade: 99 },
- { nome: "wilker", idade: 55 },
-]);
+
+//pessoas
+var lista = new List([{
+    nome: "Orlando",
+    idade: 23
+}, {
+    nome: "Leo",
+    idade: 26
+}, {
+    nome: "Matheus",
+    idade: 16
+}, {
+    nome: "Maysa",
+    idade: 13
+}, {
+    nome: "Roger",
+    idade: 89
+}, {
+    nome: "wilker",
+    idade: 55
+}, ]);
+
+//idade > 23
 var nomes = lista.where(function (item) {
     return item.idade > 23;
 }).select(function (item) {
@@ -24,16 +47,22 @@ console.log(lista.first(function (item) {
 }).nome);
 
 //verifica se tem algum na lista com a condição
-if (lista.any(function (item) { return item.idade > 50 })) {
+if (lista.any(function (item) {
+    return item.idade > 90;
+})) {
     document.getElementById("label").textContent = "Tem 3ª idade na lista";
+} else {
+    document.getElementById("label").textContent = "Não tem 3ª idade na lista";
 }
 //primeiro sem condição
 document.getElementById("label2").textContent = "Primeiro é: ".concat(lista.first().nome);
 //último
 document.getElementById("label3").textContent = "Último é: ".concat(lista.last().nome);
-
-//li
-var items = new List($("#ex2 > li").toArray());
+//primeiro letra M
+document.getElementById("label3").textContent = "Primeiro com letra M é:".concat(lista.first(function (item) { return item.nome[0] == "M"; }).nome);
+    
+//elementos em #ex2 > li
+var items = new List($("#ex2 > li"));
 items.where(function (li) {
     //retorna os não selecionados
     return !li.classList.contains("selected");
@@ -42,6 +71,7 @@ items.where(function (li) {
     li.parentNode.removeChild(li);
 });
 
+//has class selected
 items.where(function (li) {
     //retorna os não selecionados
     return !li.classList.contains("selected");
