@@ -28,27 +28,37 @@
         array.splice(index, 1);
     };
     this.first = function (action) {
-        if (!action)
-            return array[0];
-        var i = -1;
-        while (++i < array.length) {
-            if (action(array[i])) return array[i];
+        if (!action) {
+            if (callbacks.length === 0) {
+                return array[0];
+            } 
+            var retorno = this.toList();
+            return retorno[0];
         }
-        return {};
+        action._type = "f";
+        callbacks.push(action);
+        var retorno = this.toList(true);
+        callbacks.pop();
+        return retorno.length > 0 ? {} : retorno;
     };
     this.last = function () {
-        return array[array.length - 1]
+        /// <summary>Retorna o último membro da lista</summary>
+        var retorno = this.toList();
+        return retorno[retorno.length - 1];
     };
     this.slice = array.slice.bind(array);
     this.any = function (action) {
+        /// <summary>Retorna true caso tenha um item com o filtro selecionado</summary>
         /// <param name="action" type="bool function(item){}"></param>
         /// <returns type="List" />
         action._type = "a";
         callbacks.push(action);
         var retorno = this.toList(true);
+        callbacks.pop();
         return retorno === undefined ? false : (retorno !== true ? false : true);
     };
     this.where = function (action) {
+        /// <summary>Filtra a lista</summary>
         /// <param name="action" type="bool function(item){}"></param>
         /// <returns type="List" />
         action._type = "w";
@@ -57,6 +67,7 @@
         return new List(array.slice(), _callbacks);
     };
     this.select = function (action) {
+        /// <summary>Retorna uma lista onde cada item é o retorno do método</summary>
         /// <param name="action" type="object function(item, i){}"></param>
         /// <returns type="List" />
         action._type = "s";
@@ -88,10 +99,10 @@
         _action._type = "w";
         var _callbacks = callbacks.slice();
         _callbacks.push(_action);
-
         return new List(array.slice(), _callbacks);
     };
     this.each = function (action) {
+        /// <summary>Percorre item a item da lista</summary>
         /// <param name="action" type="object function(item, i){}"></param>
         action._type = "e";
         callbacks.push(action);
@@ -109,6 +120,15 @@
         "e": function (func, item) {
             func(item);
             return item;
+        },
+        "f": function (func, item) {
+            var retorno = func(item);
+            if (retorno === true) {
+                this.r = item;
+                return this.a = true;
+            } else {
+                return item;
+            }
         },
         "s": function (func, item) {
             var _output = this;
@@ -132,17 +152,19 @@
                     a: false,
                     r: null
                 };
-            for (; j < callbacks.length; j++) {
-                var func = callbacks[j];
-                _item = switchObject[func._type].apply(stopAny, [func, _item]);
-                if (stopAny.a) {
-                    if (stopAny.r) {
-                        return stopAny.r;
+            if (callbacks.length > 0) {
+                for (; j < callbacks.length; j++) {
+                    var func = callbacks[j];
+                    _item = switchObject[func._type].apply(stopAny, [func, _item]);
+                    if (stopAny.a) {
+                        if (stopAny.r) {
+                            return stopAny.r;
+                        }
+                        break;
                     }
-                    break;
-                }
 
-                if (!_item) break;
+                    if (!_item) break;
+                }
             }
             if (hasOutput !== false && _item) output.push(_item);
         }
