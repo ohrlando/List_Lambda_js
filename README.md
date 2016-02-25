@@ -5,7 +5,8 @@ List class with Lambda like c# with select, where, first (condition), last(condi
 
 ## List class to javascript like c# List with lambda methods:
 ### select, where, any (filter condition), each (function)
-### first, first(filter condition), last, remove (index), add, addRange(Array), slice.
+### first, first(filter condition), last, remove (index), add, addRange(Array), slice
+### And new distinct objects and distinct string/int, 
 
 #### Array, List, c#, Lambda, Action, Javascript, js
 
