@@ -1,4 +1,4 @@
-List = function (array, inheritCallbacks) {
+﻿List = function (array, inheritCallbacks) {
     /// <signature>
     ///     <summary>Lista para mais performance que o Array</summary>
     ///     <param name="array" type="Array">inicializa a lista com um array</param>
@@ -117,8 +117,8 @@ List = function (array, inheritCallbacks) {
         "d": function (func, item) {
 
         },
-        "e": function (func, item) {
-            func(item);
+        "e": function (func, item, index) {
+            func(item, index);
             return item;
         },
         "f": function (func, item) {
@@ -130,12 +130,12 @@ List = function (array, inheritCallbacks) {
                 return item;
             }
         },
-        "s": function (func, item) {
+        "s": function (func, item, index) {
             var _output = this;
-            return func(item);
+            return func(item, index);
         },
-        "w": function (func, item) {
-            return func(item) ? item : null;
+        "w": function (func, item, index) {
+            return func(item, index) ? item : null;
         },
     };
     this.toList = function (hasOutput) {
@@ -155,7 +155,7 @@ List = function (array, inheritCallbacks) {
             if (callbacks.length > 0) {
                 for (; j < callbacks.length; j++) {
                     var func = callbacks[j];
-                    _item = switchObject[func._type].apply(stopAny, [func, _item]);
+                    _item = switchObject[func._type].apply(stopAny, [func, _item, i]);
                     if (stopAny.a) {
                         if (stopAny.r) {
                             return stopAny.r;
