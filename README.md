@@ -19,7 +19,7 @@ List class with Lambda like c# with select, where, first (condition), last(condi
 
 # Release Notes
 - 1.2.1
-- fixed bug - index was undefined for each, select and where method
+- fixed bug - index was undefined for "each", "select" and "where" methods
 
 - 1.2.0
 - fixed bugs, added distinct 
