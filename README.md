@@ -10,9 +10,12 @@ List class with Lambda like c# with select, where, first (condition), last(condi
 ### first, first(filter condition), last, remove (index), add, addRange(Array), slice
 ### And new distinct objects and distinct string/int, 
 
-#### Array, List, c#, Lambda, Action, Javascript, js
 
-###It works fine with jQuery (see the samples at jsfiddle)
+###It works fine with *jQuery* (see the samples at jsfiddle)
+
+
+*Array, List, c#, Lambda, Action, Javascript, js*
+
 
 # Release Notes
 - 1.2.1
