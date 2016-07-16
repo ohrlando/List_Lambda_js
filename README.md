@@ -18,6 +18,10 @@ List class with Lambda like c# with select, where, first (condition), last(condi
 
 
 # Release Notes
+- 1.3.0
+  - improve performance on distinct.
+  - added callback's data (used by distinct)
+
 - 1.2.1
   - fixed bug - index was undefined for "each", "select" and "where" methods
 
